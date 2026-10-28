@@ -228,6 +228,7 @@ async function cmdRun(v) {
     });
   } finally {
     await session.finish({ keep: Boolean(v["keep-open"]) }).catch((e) => log(`finish failed: ${e.message}`));
+    fs.rmSync(session.dir, { recursive: true, force: true });
   }
   result.wallMs = Date.now() - t0;
   result.session = { spawns: session.spawns, startMs: session.startMs };
