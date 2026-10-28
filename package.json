@@ -1,0 +1,38 @@
+{
+  "name": "pickstep",
+  "version": "0.1.0",
+  "description": "Browser testing where Claude Code plans, TypeSafe's Jev picks each step, and ego lite drives the browser.",
+  "type": "module",
+  "bin": {
+    "pickstep": "bin/pickstep.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "skill",
+    "examples"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "test:ego": "node test/ego/tricky.ego.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "browser-testing",
+    "e2e",
+    "claude-code",
+    "jev",
+    "typesafe",
+    "ego-lite"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "yaml": "^2.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jinjin99/pickstep.git"
+  }
+}

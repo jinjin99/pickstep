@@ -1,0 +1,17 @@
+# Public practice shop (https://practicesoftwaretesting.com), made for testing tools.
+name: Toolshop - put a hammer in the cart and open the cart
+url: https://practicesoftwaretesting.com/
+budget:
+  actions: 15
+  jev: 20
+stages:
+  - goal: Open the product page of the Thor Hammer
+    until:
+      url: /product/
+      text: Thor Hammer
+  - goal: Add this product to the shopping cart
+    until:
+      js: document.querySelector('[data-test=cart-quantity]')?.textContent.trim() === '1'
+  - goal: Open the shopping cart
+    until:
+      url: /checkout

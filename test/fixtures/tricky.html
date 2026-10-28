@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tricky page</title>
+<style>
+  body { font: 16px sans-serif; margin: 0; }
+  header { height: 60px; display: flex; gap: 16px; align-items: center; padding: 0 16px; }
+  .menu { position: absolute; top: 60px; left: 16px; opacity: 0; }
+  .offscreen { position: absolute; left: -500px; top: 100px; }
+  .offright { position: absolute; left: 3000px; top: 100px; }
+  .carousel { width: 200px; overflow: hidden; white-space: nowrap; margin: 16px; }
+  .carousel a { display: inline-block; width: 200px; }
+  .spacer { height: 1500px; }
+  .fade { opacity: 0; }
+  .card { cursor: pointer; padding: 8px; border: 1px solid #999; width: 160px; margin: 16px; }
+  #cookie { position: fixed; left: 0; right: 0; bottom: 0; height: 100vh; background: rgba(0,0,0,.4); z-index: 50; }
+  #cookie .box { position: absolute; bottom: 0; left: 0; right: 0; background: #fff; padding: 16px; }
+  #result { margin: 16px; }
+</style>
+</head>
+<body>
+<header>
+  <a href="/">Home</a>
+  <button id="buy">Buy now</button>
+  <x-cart></x-cart>
+  <a href="/new-tab.html" target="_blank">Open in new tab</a>
+</header>
+<nav class="menu"><a href="/hidden-menu">Hidden menu item</a></nav>
+<a class="offscreen" href="/left">Off to the left</a>
+<a class="offright" href="/right">Off to the right</a>
+<div class="carousel"><a href="/slide-1">Slide one</a><a href="/slide-2">Slide two</a></div>
+<div class="card" id="card">Clickable card without a role</div>
+<div id="result">nothing yet</div>
+<div class="spacer"></div>
+<div class="fade"><a href="/fade-in">Fades in when scrolled to</a></div>
+<div id="cookie"><div class="box">We use cookies for tracking. <button id="accept">Accept all</button> <button id="reject">Reject all</button></div></div>
+<script>
+  customElements.define("x-cart", class extends HTMLElement {
+    connectedCallback() {
+      const root = this.attachShadow({ mode: "open" });
+      root.innerHTML = '<button id="cart">Cart (0)</button>';
+      root.querySelector("button").addEventListener("click", () => (document.getElementById("result").textContent = "cart opened"));
+    }
+  });
+  document.getElementById("buy").addEventListener("click", (e) => (document.getElementById("result").textContent = "bought, trusted=" + e.isTrusted));
+  document.getElementById("card").addEventListener("click", () => (document.getElementById("result").textContent = "card clicked"));
+  document.getElementById("reject").addEventListener("click", () => document.getElementById("cookie").remove());
+  document.getElementById("accept").addEventListener("click", () => (document.getElementById("result").textContent = "ACCEPTED COOKIES"));
+</script>
+</body>
+</html>
